@@ -34,8 +34,8 @@ position_data <- read_csv('positions.csv') %>%
   mutate(
     # Build some custom sections by collapsing others
     section = case_when(
-      section %in% c('research_positions', 'industry_positions') ~ 'positions', 
-      section %in% c('data_science_writings', 'by_me_press') ~ 'writings',
+      section %in% c('research_positions', 'industry_positions', 'teaching_positions') ~ 'positions', 
+      section %in% c('data_science_writings', 'academic_articles') ~ 'writings',
       TRUE ~ section
     )
   ) 
@@ -123,5 +123,4 @@ Selected Writing {data-icon=newspaper}
 ```{r}
 position_data %>% print_section('writings')
 ```
-
 

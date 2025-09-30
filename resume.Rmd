@@ -57,7 +57,7 @@ Contact {#contact}
 - <i class="fa fa-envelope"></i> rambuyosta@gmail.com
 - <i class="fa fa-twitter"></i> rambuyosta
 - <i class="fa fa-github"></i> github.com/yostaenga
-- <i class="fa fa-link"></i> 
+- <i class="fa fa-link"></i> [LinkedIn](https://www.linkedin.com/in/yosta-rambu-13872786/)
 - <i class="fa fa-phone"></i> (602) 758-1312
 
 

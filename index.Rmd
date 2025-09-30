@@ -1,11 +1,127 @@
 ---
----
-title: "Redirect"
-output: html_document
+title: Yosta Rambu Lika Enga's Resume"
+author: Yosta Rambu Lika Enga
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_resume:
+    css: ['css/custom_resume.css', 'css/styles.css', 'resume']
+    # set it to true for a self-contained HTML page but it'll take longer to render
+    self_contained: true
 ---
 
-<script>
-  window.location.href = "resume.html";
-</script>
----
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+library(tidyverse)
+library(glue)
+
+# Set this to true to have links turned into footnotes at the end of the document
+PDF_EXPORT <- FALSE
+
+# Holds all the links that were inserted for placement at the end
+links <- c()
+
+source('parsing_functions.R')
+
+
+# First let's get the data, filtering to only the items tagged as
+# Resume items
+position_data <- read_csv('positions.csv') %>% 
+  filter(in_resume) %>% 
+  mutate(
+    # Build some custom sections by collapsing others
+    section = case_when(
+      section %in% c('research_positions', 'industry_positions') ~ 'positions', 
+      section %in% c('data_science_writings', 'by_me_press') ~ 'writings',
+      TRUE ~ section
+    )
+  ) 
+
+```
+
+
+Aside
+================================================================================
+
+
+![logo](beta_dist.png){width=100%}
+
+Contact {#contact}
+--------------------------------------------------------------------------------
+
+
+
+- <i class="fa fa-envelope"></i> rambuyosta@gmail.com
+- <i class="fa fa-twitter"></i> rambuyosta
+- <i class="fa fa-github"></i> github.com/yostaenga
+- <i class="fa fa-link"></i> [LinkedIn](https://www.linkedin.com/in/yosta-rambu-13872786/)
+- <i class="fa fa-phone"></i> (602) 758-1312
+
+
+
+Language Skills {#skills}
+--------------------------------------------------------------------------------
+- English (Fluent)
+- Bahasa Indonesia (Native)
+
+```{r}
+skills <- tribble(
+  ~skill,               ~level,
+  "R",                  5,
+  "SPSS (d3.js)", 4.5,
+  "Ms.Excel",             4,
+  "Data Visualization",               3.5,
+  "Statistical Analysis",                3,
+  "Policy Evaluation",                3,
+  "Data Storytelling",                3
+)
+build_skill_bars(skills)
+```
+
+
+
+
+Main
+================================================================================
+
+Yosta Rambu Lika Enga {#title}
+--------------------------------------------------------------------------------
+
+```{r}
+intro_text <- "Master of Public Administration candidate at Arizona State University with 9+ years of experience as a Statistician at Statistics Indonesia. Skilled in SPSS, R, and Excel with expertise in survey design, data visualization, and policy evaluation. Passionate about civic engagement, data-driven policy, and inclusive public services. Currently seeking roles in data analysis and public policy that leverage statistical expertise to improve government decision-making and program design."
+
+
+
+cat(sanitize_links(intro_text))
+```
+
+
+
+Education {data-icon=graduation-cap data-concise=true}
+--------------------------------------------------------------------------------
+
+```{r}
+position_data %>% print_section('education')
+```
+
+
+
+Selected Positions {data-icon=suitcase}
+--------------------------------------------------------------------------------
+
+```{r}
+position_data %>% print_section('positions')
+```
+
+Selected Writing {data-icon=newspaper}
+--------------------------------------------------------------------------------
+
+
+```{r}
+position_data %>% print_section('writings')
+```
+
 
